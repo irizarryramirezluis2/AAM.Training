@@ -1,0 +1,54 @@
+{
+  "name": "EmailTemplate",
+  "type": "object",
+  "properties": {
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "level1_approval",
+        "level2_approval",
+        "level3_approval",
+        "exercise_approval",
+        "certification",
+        "account_suspended",
+        "account_reactivated",
+        "account_reset"
+      ]
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "use_image": {
+      "type": "boolean",
+      "default": false
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "name_x": {
+      "type": "number",
+      "default": 50
+    },
+    "name_y": {
+      "type": "number",
+      "default": 50
+    },
+    "name_font_size": {
+      "type": "number",
+      "default": 48
+    },
+    "name_color": {
+      "type": "string",
+      "default": "#1a2a3a"
+    },
+    "updated_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "template_type"
+  ]
+}

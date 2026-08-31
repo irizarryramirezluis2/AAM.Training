@@ -1,0 +1,48 @@
+{
+  "name": "Announcement",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "media_type": {
+      "type": "string",
+      "enum": [
+        "none",
+        "link",
+        "image",
+        "video"
+      ],
+      "default": "none"
+    },
+    "media_url": {
+      "type": "string"
+    },
+    "target_audience": {
+      "type": "string",
+      "enum": [
+        "all",
+        "new",
+        "uncertified"
+      ],
+      "default": "all"
+    },
+    "publish_at": {
+      "type": "string"
+    },
+    "published": {
+      "type": "boolean",
+      "default": false
+    },
+    "author": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "body"
+  ]
+}

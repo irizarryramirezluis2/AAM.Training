@@ -1,0 +1,27 @@
+{
+  "name": "Question",
+  "type": "object",
+  "properties": {
+    "question_text": {
+      "type": "string"
+    },
+    "question_author": {
+      "type": "string"
+    },
+    "question_date": {
+      "type": "string"
+    },
+    "answer_text": {
+      "type": "string"
+    },
+    "answer_author": {
+      "type": "string"
+    },
+    "answer_date": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "question_text"
+  ]
+}

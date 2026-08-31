@@ -1,0 +1,154 @@
+{
+  "name": "Member",
+  "type": "object",
+  "properties": {
+    "member_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "profile_picture": {
+      "type": "string"
+    },
+    "access_code": {
+      "type": "string"
+    },
+    "admin_level": {
+      "type": "number",
+      "default": 0
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "en",
+        "es"
+      ],
+      "default": "en"
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "dark",
+        "light"
+      ],
+      "default": "dark"
+    },
+    "text_size": {
+      "type": "number",
+      "default": 5
+    },
+    "dyslexia_mode": {
+      "type": "boolean",
+      "default": false
+    },
+    "high_contrast": {
+      "type": "boolean",
+      "default": false
+    },
+    "color_inversion": {
+      "type": "boolean",
+      "default": false
+    },
+    "reduce_motion": {
+      "type": "boolean",
+      "default": false
+    },
+    "badge_popup_disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "tour_disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "level1_complete": {
+      "type": "boolean",
+      "default": false
+    },
+    "level2_complete": {
+      "type": "boolean",
+      "default": false
+    },
+    "level3_complete": {
+      "type": "boolean",
+      "default": false
+    },
+    "level1_cert_submitted": {
+      "type": "boolean",
+      "default": false
+    },
+    "level2_cert_submitted": {
+      "type": "boolean",
+      "default": false
+    },
+    "level2_cert2_submitted": {
+      "type": "boolean",
+      "default": false
+    },
+    "level3_cert_submitted": {
+      "type": "boolean",
+      "default": false
+    },
+    "level1_cert_url": {
+      "type": "string"
+    },
+    "level2_cert1_url": {
+      "type": "string"
+    },
+    "level2_cert2_url": {
+      "type": "string"
+    },
+    "level3_cert_url": {
+      "type": "string"
+    },
+    "certified": {
+      "type": "boolean",
+      "default": false
+    },
+    "certified_seen": {
+      "type": "boolean",
+      "default": false
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "assigned_scenario": {
+      "type": "number",
+      "default": 0
+    },
+    "submission_link": {
+      "type": "string"
+    },
+    "submission_media_type": {
+      "type": "string"
+    },
+    "submission_status": {
+      "type": "string"
+    },
+    "admin_feedback": {
+      "type": "string"
+    },
+    "certificate_url": {
+      "type": "string"
+    },
+    "certificate_seen": {
+      "type": "boolean",
+      "default": false
+    },
+    "account_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "account_status": {
+      "type": "string"
+    },
+    "welcome_seen": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "member_name"
+  ]
+}
