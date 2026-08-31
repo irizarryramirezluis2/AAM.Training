@@ -1,0 +1,187 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "name": "ethics-pre-file-edit",
+        "description": "Ethical compliance check before any file is edited",
+        "type": "command",
+        "command": "node .github/hooks/pre-file-edit.js",
+        "timeout": 30,
+        "condition": "tool in ['edit', 'create']",
+        "onFailure": "block",
+        "linux": {
+          "command": "node .github/hooks/pre-file-edit.js"
+        },
+        "osx": {
+          "command": "node .github/hooks/pre-file-edit.js"
+        },
+        "windows": {
+          "command": "node .github\\hooks\\pre-file-edit.js"
+        }
+      }
+    ],
+    "PostToolUse": [
+      {
+        "name": "ethics-post-file-edit",
+        "description": "Log file modifications and verify ethical compliance after edits",
+        "type": "command",
+        "command": "node .github/hooks/post-file-edit.js",
+        "timeout": 30,
+        "condition": "tool in ['edit', 'create'] and result.success",
+        "onFailure": "warn",
+        "linux": {
+          "command": "node .github/hooks/post-file-edit.js"
+        },
+        "osx": {
+          "command": "node .github/hooks/post-file-edit.js"
+        },
+        "windows": {
+          "command": "node .github\\hooks\\post-file-edit.js"
+        }
+      }
+    ],
+    "SessionStart": [
+      {
+        "name": "ethics-session-init",
+        "description": "Initialize ethics monitoring at session start",
+        "type": "command",
+        "command": "node .github/hooks/session-init.js",
+        "timeout": 10,
+        "onFailure": "warn"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "name": "ethics-prompt-validation",
+        "description": "Validate user prompts for malicious instructions",
+        "type": "command",
+        "command": "node .github/hooks/validate-prompt.js",
+        "timeout": 5,
+        "onFailure": "log"
+      }
+    ]
+  },
+  "auditLog": {
+    "enabled": true,
+    "location": ".github/audit/audit.log",
+    "format": "json",
+    "retentionDays": 90,
+    "immutable": true,
+    "includeFields": [
+      "timestamp",
+      "userId",
+      "agentId",
+      "actionType",
+      "resourceType",
+      "resourceId",
+      "changeDescription",
+      "ethicsViolationsDetected",
+      "ethicsFixesApplied",
+      "complianceStatus",
+      "metadata"
+    ]
+  },
+  "ethicsRules": {
+    "hardcodedSecrets": {
+      "enabled": true,
+      "patterns": [
+        "(api[_-]?key|password|secret|token|auth)\\s*=\\s*[\"']([a-zA-Z0-9_\\-]+)[\"']",
+        "process\\.env\\.[A-Z_]+\\s*=\\s*[\"']"
+      ],
+      "severity": "critical",
+      "autoFix": true,
+      "fixStrategy": "replace_with_env_var"
+    },
+    "plaintextPasswords": {
+      "enabled": true,
+      "patterns": [
+        "password\\s*=",
+        "plaintext.*password",
+        "store.*password.*plain"
+      ],
+      "severity": "critical",
+      "autoFix": true,
+      "fixStrategy": "require_hashing"
+    },
+    "unauthorizedTracking": {
+      "enabled": true,
+      "patterns": [
+        "analytics\\.track|tracking\\.",
+        "telemetry\\.",
+        "sendMetrics\\("
+      ],
+      "requiresConsent": true,
+      "severity": "high",
+      "autoFix": true,
+      "fixStrategy": "add_consent_check"
+    },
+    "sensitiveDataLogging": {
+      "enabled": true,
+      "patterns": [
+        "console\\.log.*(?:password|secret|token|ssn|credit)",
+        "log\\(.*(?:password|secret|token|ssn|credit)"
+      ],
+      "severity": "high",
+      "autoFix": true,
+      "fixStrategy": "remove_sensitive_logging"
+    },
+    "dataMinimization": {
+      "enabled": true,
+      "patterns": [
+        "collect.*All|gather.*Everything|store.*\\*",
+        "ssn|socialSecurity|medicalHistory|creditCard"
+      ],
+      "severity": "high",
+      "autoFix": false,
+      "requiresReview": true
+    },
+    "inputValidation": {
+      "enabled": true,
+      "requireValidation": ["query", "params", "requestBody", "userInput"],
+      "severity": "medium",
+      "autoFix": false,
+      "requiresReview": true
+    },
+    "authenticationBypass": {
+      "enabled": true,
+      "patterns": [
+        "auth.*disabled|bypass.*auth|skip.*login|no.*authentication"
+      ],
+      "severity": "critical",
+      "autoFix": false,
+      "requiresReview": true,
+      "blocksCommit": true
+    },
+    "piiExposure": {
+      "enabled": true,
+      "patterns": [
+        "(?:ssn|socialSecurity|medicalRecord|healthData|creditCard)",
+        "return.*(?:ssn|creditCard)|response.*(?:ssn|creditCard)"
+      ],
+      "severity": "critical",
+      "autoFix": true,
+      "fixStrategy": "filter_response"
+    }
+  },
+  "consentManagement": {
+    "enabled": true,
+    "requireExplicitConsent": [
+      "analytics",
+      "profiling",
+      "thirdPartySharing",
+      "locationTracking",
+      "behavioralTracking"
+    ],
+    "consentLog": ".github/audit/consent.log",
+    "defaultConsent": false,
+    "allowOptOut": false
+  },
+  "privacyDefaults": {
+    "dataCollection": "minimal",
+    "defaultConsent": false,
+    "consentRequired": true,
+    "userDeletionEnabled": true,
+    "userAccessEnabled": true,
+    "dataRetentionDays": 90
+  }
+}

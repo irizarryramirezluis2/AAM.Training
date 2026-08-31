@@ -1,0 +1,21 @@
+{
+  "name": "AuditLog",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string"
+    },
+    "admin_name": {
+      "type": "string"
+    },
+    "target_name": {
+      "type": "string"
+    },
+    "action_date": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "action"
+  ]
+}
