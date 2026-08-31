@@ -1,0 +1,7 @@
+import { AdminL4LogService } from './Components/AdminL4AuditLogDashboard';
+
+// Call on login success:
+await AdminL4LogService.logAccessEvent('user_123', 'SIGN_IN', 'Member', 'user@example.com');
+
+// Call on logout:
+await AdminL4LogService.logAccessEvent('user_123', 'SIGN_OUT', 'Member', 'user@example.com');
