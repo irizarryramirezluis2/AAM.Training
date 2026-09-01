@@ -1,9 +1,7 @@
-#!/bin/bash
-# pre-commit-ethics.sh
-# Mandatory ethics compliance hook for git commits
-# Runs before every commit to ensure code meets ethical guidelines
-# Cannot be bypassed (no --no-verify allowed in policy)
-
+#!/usr/bin/env bash
+# ==============================================================================
+# Pre-Commit Ethics & Compliance Enforcer
+# ==============================================================================
 set -e
 
 ETHICS_VIOLATIONS=0
@@ -105,6 +103,11 @@ for file in $STAGED_FILES; do
     fi
 
 done
+
+# Generate audit log entry if script exists
+if [ -f "./.github/scripts/generate-ethics-report.js" ]; then
+    node ./.github/scripts/generate-ethics-report.js || true
+fi
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
